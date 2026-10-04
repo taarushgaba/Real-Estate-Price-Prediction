@@ -3,10 +3,6 @@ import streamlit as st
 import requests
 
 
-# ============================================================
-# PAGE CONFIG
-# ============================================================
-
 st.set_page_config(
     page_title="Real Estate Price Prediction",
     page_icon="🏡",
@@ -15,9 +11,6 @@ st.set_page_config(
 )
 
 
-# ============================================================
-# CUSTOM CSS
-# ============================================================
 
 st.markdown("""
 <style>
@@ -528,9 +521,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# ============================================================
-# PAGE TITLE
-# ============================================================
 
 st.markdown(
     '<div class="hero-title">Real Estate Price Prediction</div>',
@@ -538,9 +528,6 @@ st.markdown(
 )
 
 
-# ============================================================
-# MAIN LAYOUT
-# ============================================================
 
 left, right = st.columns(
     [1.65, 1],
@@ -548,9 +535,6 @@ left, right = st.columns(
 )
 
 
-# ============================================================
-# LEFT SIDE — INPUTS
-# ============================================================
 
 with left.container(border=True):
 
@@ -566,9 +550,7 @@ with left.container(border=True):
         unsafe_allow_html=True
     )
 
-    # -------------------------
-    # AREA + BEDROOMS
-    # -------------------------
+    
 
     col1, col2 = st.columns(2)
 
@@ -591,9 +573,6 @@ with left.container(border=True):
         )
 
 
-    # -------------------------
-    # BATHROOMS + STORIES
-    # -------------------------
 
     col3, col4 = st.columns(2)
 
@@ -616,9 +595,7 @@ with left.container(border=True):
         )
 
 
-    # -------------------------
-    # PARKING + MAIN ROAD
-    # -------------------------
+
 
     col5, col6 = st.columns(2)
 
@@ -640,9 +617,6 @@ with left.container(border=True):
         )
 
 
-    # -------------------------
-    # FURNISHING
-    # -------------------------
 
     furnishingstatus = st.selectbox(
         "Furnishing status",
@@ -659,18 +633,12 @@ with left.container(border=True):
     st.write("")
 
 
-    # -------------------------
-    # PREDICT BUTTON
-    # -------------------------
 
     predict = st.button(
         "✦  Estimate Property Value"
     )
 
 
-# -------------------------
-# PROPERTY SIZE PROFILE
-# -------------------------
 
 if area >= 2000:
     profile = "Spacious property"
@@ -680,9 +648,6 @@ else:
     profile = "Compact property"
 
 
-# ============================================================
-# RIGHT SIDE — PROPERTY SUMMARY
-# ============================================================
 
 with right.container(border=True):
 
@@ -694,9 +659,6 @@ with right.container(border=True):
     )
 
 
-    # -------------------------
-    # SUMMARY
-    # -------------------------
 
     st.html(
         f"""
@@ -784,9 +746,6 @@ with right.container(border=True):
     prediction_placeholder = st.empty()
 
 
-# ============================================================
-# PREDICTION
-# ============================================================
 
 if predict:
 
@@ -809,9 +768,7 @@ if predict:
     }
 
 
-    # -------------------------
-    # LOADING
-    # -------------------------
+   
 
     with st.spinner(
         "Analyzing property details..."
@@ -819,9 +776,7 @@ if predict:
 
         try:
 
-            # ==================================================
-            # FASTAPI CONNECTION
-            # ==================================================
+          
 
             response = requests.post(
                 "http://127.0.0.1:8000/predict",
@@ -844,9 +799,7 @@ if predict:
             ]
 
 
-            # -------------------------
-            # FORMAT PRICE
-            # -------------------------
+           
 
             try:
 
@@ -861,9 +814,7 @@ if predict:
                 )
 
 
-            # ==================================================
-            # RESULT CARD
-            # ==================================================
+
 
             prediction_placeholder.html(
                 f"""
@@ -887,10 +838,7 @@ if predict:
             )
 
 
-        # ======================================================
-        # CONNECTION ERROR
-        # ======================================================
-
+        
         except requests.exceptions.ConnectionError:
 
             st.error(
@@ -899,9 +847,7 @@ if predict:
             )
 
 
-        # ======================================================
-        # API ERROR
-        # ======================================================
+       
 
         except requests.exceptions.HTTPError:
 
@@ -915,9 +861,7 @@ if predict:
             )
 
 
-        # ======================================================
-        # OTHER ERROR
-        # ======================================================
+        
 
         except Exception as e:
 
