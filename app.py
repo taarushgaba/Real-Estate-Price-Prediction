@@ -25,10 +25,8 @@ def home():
 @app.post('/predict')
 def predict(data:houseinput):
     
-    # Convert bool to int
     mainroad = 1 if data.mainroad else 0
 
-    # Convert furnishingstatus to encoded value
     furnishing_map = {
         'furnished': 0,
         'semi-furnished': 1,
